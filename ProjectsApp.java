@@ -106,7 +106,7 @@ public class ProjectsApp {
 		project.setDifficulty(Objects.isNull(difficulty) ? curProject.getDifficulty() : difficulty);
 		project.setNotes(Objects.isNull(notes) ? curProject.getNotes() : notes);
 
-		projectService.updateProjectDetails(project);
+		projectService.modifyProjectDetails(project);
 		curProject = projectService.fetchProjectById(curProject.getProjectId());
 
 	}

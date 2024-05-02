@@ -173,17 +173,19 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
-	public boolean updateProjectDetails(Project project) {
-		// @formatter:off
-		String sql = "" 
-	+ "UPDATE " + PROJECT_TABLE + " SET "
-	+ "project_name = ?," 
-	+ "estimated_hours = ?,"
-	+ "actual_hours = ?,"
-	+ "difficulty = ?,"
-	+ "notes = ? "
-	+ " WHERE project_id = ?"; 
-	// @formatter:on
+	// @formatter:off
+public boolean modifyProjectDetails(Project project) {
+		
+	String sql = "" 
+			+ "UPDATE " + PROJECT_TABLE + " SET "
+			+ "project_name = ?," 
+			+ "estimated_hours = ?,"
+			+ "actual_hours = ?,"
+			+ "difficulty = ?,"
+			+ "notes = ? "
+			+ " WHERE project_id = ?"; 
+			// @formatter:on
+
 		try (Connection conn = DbConnection.getConnection()) {
 			startTransaction(conn);
 
@@ -195,10 +197,10 @@ public class ProjectDao extends DaoBase {
 				setParameter(stmt, 5, project.getNotes(), String.class);
 				setParameter(stmt, 6, project.getProjectId(), Integer.class);
 
-				boolean updated = stmt.executeUpdate() == 1;
+				boolean modified = stmt.executeUpdate() == 1;
 				commitTransaction(conn);
 
-				return updated;
+				return modified;
 			} catch (Exception e) {
 				rollbackTransaction(conn);
 				throw new DbException(e);
@@ -210,6 +212,7 @@ public class ProjectDao extends DaoBase {
 
 	// @formatter:off
 	public boolean deleteProject(Integer projectId) {
+	 
 		String sql = "DELETE FROM " + PROJECT_TABLE + " WHERE project_id = ? ";
 		// @formatter:on
 		try (Connection conn = DbConnection.getConnection()) {

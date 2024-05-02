@@ -16,10 +16,18 @@ public class ProjectService {
 		return projectDao.fetchAllProjects();
 	}
 
-	public void updateProjectDetails(Project project) {
-		if (!projectDao.updateProjectDetails(project)) {
-			throw new DbException("Project with ID=" + project.getProjectId() + " does nor exist.");
+	public void modifyProjectDetails(Project project) {
+		if (!projectDao.modifyProjectDetails(project)) {
+			throw new DbException("Project with ID=" + project.getProjectId() + " does not exist.");
 		}
+
+	}
+
+	public void deleteProject(Integer projectId) {
+		if (!projectDao.deleteProject(projectId)) {
+			throw new DbException("Project with ID=" + projectId + " does not exist.");
+		}
+
 	}
 
 	public Project fetchProjectById(Integer projectId) {
@@ -34,10 +42,4 @@ public class ProjectService {
 
 	}
 
-	public void deleteProject(Integer projectId) {
-		if (!projectDao.deleteProject(projectId)) {
-			throw new DbException("Project with ID=" + projectId + " does not exist.");
-		}
-
-	}
 }
